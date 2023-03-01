@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 // pages
 import Home from "./pages/Home/Home";
-import Create from "./pages/Create";
+import Create from "./pages/Create/Create";
 import Update from "./pages/Update";
 
 function App() {
