@@ -17,10 +17,8 @@ const Home = () => {
                 setAllData(null);
                 console.log(error);
             }
-            if (data) {
-                setAllData(data);
-                setFetchError(null);
-            }
+            setAllData(data);
+            setFetchError(null);
         };
 
         fetchData();
