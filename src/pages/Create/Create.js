@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import supabase from "../../supabase/supabaseClient";
 import "./Create.css";
 
 const Create = () => {
+    const navigate = useNavigate();
+
     const [title, setTitle] = useState("");
     const [writer, setWriter] = useState("");
     const [rating, setRating] = useState("");
@@ -10,7 +13,6 @@ const Create = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setFormError("");
 
         if (!title || !writer || !rating) {
             setFormError("Fields can not be empty!");
@@ -25,11 +27,9 @@ const Create = () => {
             console.log(error);
             setFormError(error);
         }
-
-        if (data) {
-            console.log(data);
-            setFormError("");
-        }
+        console.log(data);
+        setFormError("");
+        navigate("/");
     };
 
     return (
