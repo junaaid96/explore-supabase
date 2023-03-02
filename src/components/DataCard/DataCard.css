@@ -1,4 +1,11 @@
 .card {
     border: 1px solid black;
+    box-shadow: 12px 12px 2px 1px rgba(72, 105, 28, 0.2);
     padding: 30px;
+    border-radius: 15px;
+}
+
+.action {
+    display: flex;
+    gap: 5px;
 }

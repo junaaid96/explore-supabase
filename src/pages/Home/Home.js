@@ -8,6 +8,12 @@ const Home = () => {
     const [fetchError, setFetchError] = useState(null);
     const [allData, setAllData] = useState(null);
 
+    const handleDelete = (id) => {
+        setAllData((prevAllData) => {
+            return prevAllData.filter((ad) => ad.id !== id);
+        });
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             const { data, error } = await supabase.from("all_data").select();
@@ -33,6 +39,7 @@ const Home = () => {
                         <DataCard
                             key={singleData.id}
                             singleData={singleData}
+                            onDelete={handleDelete}
                         ></DataCard>
                     ))}
                 </div>
