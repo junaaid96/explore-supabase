@@ -7,6 +7,7 @@ import "./Home.css";
 const Home = () => {
     const [fetchError, setFetchError] = useState(null);
     const [allData, setAllData] = useState(null);
+    const [orderBy, setOrderBy] = useState("created_at");
 
     const handleDelete = (id) => {
         setAllData((prevAllData) => {
@@ -16,7 +17,10 @@ const Home = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { data, error } = await supabase.from("all_data").select();
+            const { data, error } = await supabase
+                .from("all_data")
+                .select()
+                .order(orderBy, { ascending: false });
 
             if (error) {
                 setFetchError("Could not fetch data");
@@ -28,21 +32,35 @@ const Home = () => {
         };
 
         fetchData();
-    }, []);
+    }, [orderBy]);
 
     return (
         <div className="page home">
             {fetchError && <p>{fetchError}</p>}
             {allData && (
-                <div className="flex">
-                    {allData.map((singleData) => (
-                        <DataCard
-                            key={singleData.id}
-                            singleData={singleData}
-                            onDelete={handleDelete}
-                        ></DataCard>
-                    ))}
-                </div>
+                <>
+                    <div className="flex">
+                        <p>Sort:</p>
+                        <button onClick={() => setOrderBy("created_at")}>
+                            Time Created
+                        </button>
+                        <button onClick={() => setOrderBy("title")}>
+                            Title
+                        </button>
+                        <button onClick={() => setOrderBy("rating")}>
+                            Rating
+                        </button>
+                    </div>
+                    <div className="flex">
+                        {allData.map((singleData) => (
+                            <DataCard
+                                key={singleData.id}
+                                singleData={singleData}
+                                onDelete={handleDelete}
+                            ></DataCard>
+                        ))}
+                    </div>
+                </>
             )}
         </div>
     );
